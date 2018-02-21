@@ -1,11 +1,14 @@
 import time
 import scipy
 import matplotlib.pyplot as plt
+import cPickle as pickle
 
 import odor_tracking_sim.wind_models as wind_models
 import odor_tracking_sim.odor_models as odor_models
 import odor_tracking_sim.swarm_models as swarm_models
 import odor_tracking_sim.utility as utility
+
+output_file = 'swarm_data.pkl'
 
 # Create field, constant velocity, etc. 
 wind_param = {
@@ -39,12 +42,12 @@ odor_param = {
         'source_locations' : location_list, 
         'source_strengths' : strength_list,
         'epsilon'          : 0.01,
-        'trap_radius'      : 10.0
+        'trap_radius'      : 50.0
         }
 odor_field = odor_models.FakeDiffusionOdorField(odor_param)
 
 # Create swarm of flies
-swarm_size = 1500
+swarm_size = 5000
 swarm_param = {
         'initial_heading'     : scipy.radians(scipy.random.uniform(0.0,360.0,(swarm_size,))),
         'x_start_position'    : scipy.zeros((swarm_size,)),
@@ -55,7 +58,7 @@ swarm_param = {
         'release_time'        : scipy.full((swarm_size,), 0.0),
         'release_time'        : scipy.random.exponential(300,(swarm_size,)),
         'cast_interval'       : [60.0, 1000.0],
-        'wind_slippage'       : 0.6,
+        'wind_slippage'       : 0.0,
         'odor_thresholds'     : {
             'lower': 0.002,
             'upper': 0.004
@@ -98,7 +101,7 @@ plt.pause(0.0001)
 
 t = 0.0
 dt = 0.25
-t_stop = 10000.0
+t_stop = 20000.0
 dt_plot = 10.0
 t_plot_last = 0.0 
 
@@ -138,6 +141,10 @@ while t<t_stop:
         #time.sleep(0.05)
 
 
-ans = raw_input('done')
+# Write swarm to file
+with open(output_file, 'w') as f:
+    pickle.dump(swarm,f)
+
+#ans = raw_input('done')
 
 

@@ -7,7 +7,8 @@ from utility import shift_and_rotate
 
 class VerySimpleFly(object):
     """
-    Old non-vectorized model for flies.
+
+    Depreciated This in the old (slow) non-vectorized model for flies.
 
     """
 

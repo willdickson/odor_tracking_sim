@@ -7,6 +7,11 @@ from utility import distance
 
 class BasicSwarmOfFlies(object):
 
+    """
+    New vectorized (faster) fly model.
+
+    """
+
     DefaultSize = 500
     DefaultParam = {
             'initial_heading'     : scipy.radians(scipy.random.uniform(0.0,360.0,(DefaultSize,))),
@@ -55,7 +60,7 @@ class BasicSwarmOfFlies(object):
         self.trap_num = scipy.full((self.size,),-1, dtype=int)
         self.x_trap_loc = scipy.zeros((self.size,))
         self.y_trap_loc = scipy.zeros((self.size,))
-        self.t_in_trap = scipy.zeros((self.size,))
+        self.t_in_trap = scipy.full((self.size,),scipy.inf)
 
 
     def check_param(self): 
@@ -217,6 +222,33 @@ class BasicSwarmOfFlies(object):
             self.y_trap_loc[mask_trapped] = trap_loc[1]
             self.x_velocity[mask_trapped] = 0.0
             self.y_velocity[mask_trapped] = 0.0
+
+            # Get time stamp for newly trapped flies
+            mask_newly_trapped = mask_trapped & (self.t_in_trap == scipy.inf)
+            self.t_in_trap[mask_newly_trapped] = t
+
+
+    def get_time_trapped(self,trap_num=None):
+        mask_trapped = self.mode == self.Mode_Trapped
+        if trap_num is None:
+            return self.t_in_trap[mask_trapped]
+        else:
+            mask_trapped_in_num = mask_trapped & (self.trap_num == trap_num)
+            return self.t_in_trap[mask_trapped_in_num]
+
+    def get_trap_nums(self):
+        mask_trap_num_set = self.trap_num != -1
+        trap_num_array = scipy.unique(self.trap_num[mask_trap_num_set])
+        trap_num_array.sort()
+        return list(trap_num_array)
+
+
+
+
+        
+
+
+        
 
 
 
