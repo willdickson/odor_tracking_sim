@@ -2,6 +2,9 @@
 
 Simple simulation of fruit-fly odor tracking for Kate's desert release experiments.
 
+![example_1](images/example_1.png)
+
+![example_2](images/example_2.png)
 
 ## Installation
 
