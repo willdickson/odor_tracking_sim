@@ -74,21 +74,7 @@ def logistic(x,x0,k):
 # --------------------------------------------------------------------
 if __name__ == '__main__':
 
-    import matplotlib.pyplot as plt
-
-    x = scipy.randn(10)
-    y = scipy.randn(10)
-
-    loc = (1.0,1.0)
-
-    vals = distance((x,y), loc)
-    print(vals)
-
-    location_list, strength_list = create_grid_of_sources(4,3,(-1000,1000),(-1000,1000), 1.0)
-    print(location_list)
-    print(strength_list)
-
-
+    pass
 
 
 

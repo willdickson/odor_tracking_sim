@@ -29,18 +29,6 @@ class ConstantWindField(object):
             return vx, vy
 
 
-# Below here just for testing/development
-# -------------------------------------------------------------------------------------------------
-if __name__ == '__main__':
-
-    param = { 'angle': 0.0, 'speed': 1.0 }
-
-    wind_field = ConstantWindField(param=param)
-    num_pts = 100
-    x = scipy.linspace(-1.0,1.0,num_pts)
-    y = scipy.linspace(-1.0,1.0,num_pts)
-    wind_values = wind_field.value(0.1,x,y)
-    print(type(wind_field)==ConstantWindField)
 
 
 
